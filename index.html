@@ -111,10 +111,18 @@ h1{margin:0;font-size:clamp(27px,7vw,50px);line-height:1.15}
   animation:fade .9s forwards;
 }
 .correctFlash{animation:flash .75s}
+.jumpEat{animation:jumpEat .75s ease}
 @keyframes pop{50%{transform:scale(1.14) rotate(-3deg)}75%{transform:scale(1.06) rotate(3deg)}}
 @keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(12px)}60%{transform:translateX(-8px)}80%{transform:translateX(8px)}}
 @keyframes fade{to{opacity:0;transform:translateY(-42px) scale(1.35)}}
 @keyframes flash{0%,100%{background:#fffaf1}40%{background:#fff3a3}}
+@keyframes jumpEat{
+  0%{transform:translateY(0) scale(1)}
+  28%{transform:translateY(-38px) scale(1.12) rotate(-5deg)}
+  55%{transform:translateY(6px) scale(1.28) rotate(5deg)}
+  78%{transform:translateY(-10px) scale(1.08)}
+  100%{transform:translateY(0) scale(1)}
+}
 @media(max-height:760px){
   .prompt{margin-top:42px}
   .card{height:215px;min-height:200px}
@@ -204,11 +212,14 @@ function tone(f,d=.09,type="sine",v=.08,delay=0){
 function sound(k){
   try{
     if(k==="ok"){
-      tone(660,.08,"triangle",.10,0);
-      tone(880,.08,"triangle",.10,.08);
-      tone(1100,.09,"triangle",.09,.16);
-      tone(1320,.12,"triangle",.09,.25);
-      tone(1760,.18,"sine",.07,.38);
+      tone(660,.08,"triangle",.12,0);
+      tone(880,.08,"triangle",.12,.07);
+      tone(1100,.09,"triangle",.11,.14);
+      tone(1320,.10,"triangle",.10,.22);
+      tone(1760,.16,"sine",.09,.32);
+      tone(2200,.20,"sine",.07,.45);
+      tone(1480,.10,"triangle",.08,.62);
+      tone(1960,.18,"sine",.06,.72);
     }else if(k==="ng"){
       tone(260,.12,"sine",.055,0);
       tone(200,.16,"sine",.045,.12);
@@ -243,6 +254,7 @@ function nextQ(){
   answered=false;
   msg.textContent="えらんでね";
   card.className="card";
+  animalEl.className="";
   cur=questions[Math.floor(Math.random()*questions.length)];
   const correct=foodByName(cur.food);
   const wrongList=foods.filter(f=>f.name!==cur.food);
@@ -267,10 +279,12 @@ function answer(btn){
       score++;
       scoreEl.textContent="せいかい "+score;
       msg.textContent="もぐもぐ！";
+      animalEl.className="jumpEat";
       card.className="card pop sparkle correctFlash";
       sound("ok");
-      speak("やったー！ "+cur.animal+"は "+cur.food+"が すき！");
-      setTimeout(nextQ,1900);
+      speak("やったー！ せいかい！");
+      setTimeout(()=>{animalEl.className=""},850);
+      setTimeout(nextQ,2100);
     }else{
       msg.textContent="ちがうよ";
       card.className="card shake";
