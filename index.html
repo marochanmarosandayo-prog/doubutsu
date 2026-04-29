@@ -3,169 +3,194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>どうぶつ すきなものクイズ</title>
+<title>すきなものクイズ</title>
 <style>
   :root{
-    --cream:#fff5c9;
-    --sky:#dbfbff;
-    --ink:#4b382d;
-    --card:#fffef8;
-    --shadow:#f0d28b;
-    --pink:#ff8fb3;
-    --blue:#63a8ff;
+    --ink:#4a382f;
+    --cream:#fff5bd;
+    --pink:#ffd6e7;
+    --sky:#d9fbff;
+    --card:#fffefa;
+    --button:#ff85b3;
+    --buttonDark:#d95782;
+    --shadow:#efd28c;
+    --ok:#ff4f8b;
+    --ng:#5aa5ff;
   }
-  *{box-sizing:border-box}
-  html,body{margin:0; min-height:100%; overflow:hidden;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{
+    margin:0;
+    height:100%;
+    overflow:hidden;
+  }
   body{
     font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
-    background:
-      radial-gradient(circle at 18% 12%, #fff9df 0 18%, transparent 34%),
-      radial-gradient(circle at 84% 88%, #cdf8ff 0 20%, transparent 36%),
-      linear-gradient(160deg,var(--cream),var(--sky));
     color:var(--ink);
+    background:
+      radial-gradient(circle at 15% 8%, #fffbe5 0 18%, transparent 35%),
+      radial-gradient(circle at 88% 92%, #c9f8ff 0 20%, transparent 38%),
+      linear-gradient(160deg,var(--cream),var(--pink) 56%,var(--sky));
   }
   .app{
-    height:100dvh;
     width:min(100vw,520px);
+    height:100dvh;
     margin:0 auto;
-    padding:calc(env(safe-area-inset-top) + 8px) 12px calc(env(safe-area-inset-bottom) + 10px);
+    padding:calc(env(safe-area-inset-top) + 10px) 12px calc(env(safe-area-inset-bottom) + 10px);
     display:flex;
     flex-direction:column;
     gap:8px;
   }
   .title{
     text-align:center;
+    font-size:clamp(34px,10vw,52px);
+    line-height:1;
     font-weight:1000;
-    font-size:clamp(30px,9vw,46px);
-    line-height:1.05;
     letter-spacing:.03em;
-    text-shadow:0 4px 0 rgba(255,255,255,.8);
-    padding-top:2px;
+    text-shadow:0 4px 0 rgba(255,255,255,.85);
   }
   .stage{
     flex:1;
     min-height:0;
-    background:rgba(255,254,248,.82);
-    border:5px solid rgba(255,255,255,.96);
-    border-radius:34px;
-    box-shadow:0 14px 28px rgba(0,0,0,.10);
-    padding:10px 12px 12px;
-    display:grid;
-    grid-template-rows:auto 1fr auto auto;
-    gap:8px;
     position:relative;
     overflow:hidden;
+    border-radius:34px;
+    border:5px solid rgba(255,255,255,.95);
+    background:
+      radial-gradient(circle at 50% 45%, rgba(255,255,255,.9) 0 28%, transparent 55%),
+      linear-gradient(160deg,rgba(255,248,191,.78),rgba(255,218,230,.78),rgba(224,251,255,.78));
+    box-shadow:0 16px 30px rgba(0,0,0,.12);
+    display:grid;
+    grid-template-rows:auto 1fr auto auto;
+    gap:6px;
+    padding:12px 12px 14px;
   }
   .question{
     text-align:center;
-    font-size:clamp(31px,9vw,46px);
+    font-size:clamp(34px,9.7vw,48px);
     font-weight:1000;
-    line-height:1.05;
-    padding-top:4px;
+    line-height:1.08;
+    min-height:52px;
+    text-shadow:0 3px 0 rgba(255,255,255,.65);
   }
-  .animalWrap{
+  .animalArea{
     display:flex;
     align-items:center;
     justify-content:center;
     min-height:0;
     position:relative;
   }
-  .character{
-    font-size:clamp(145px,42vw,220px);
+  .animal{
+    font-size:clamp(155px,46vw,235px);
     line-height:1;
-    filter:drop-shadow(0 9px 0 rgba(0,0,0,.08));
-    transition:transform .25s ease;
     transform-origin:center bottom;
+    filter:drop-shadow(0 10px 0 rgba(0,0,0,.08));
   }
-  .character.happy{ animation:jump .55s ease; }
-  @keyframes jump{
+  .animal.happy{animation:happyJump .62s ease}
+  .animal.shake{animation:shake .28s ease}
+  @keyframes happyJump{
     0%,100%{transform:translateY(0) scale(1)}
-    35%{transform:translateY(-28px) scale(1.12) rotate(-4deg)}
-    70%{transform:translateY(0) scale(1.05) rotate(4deg)}
+    32%{transform:translateY(-34px) scale(1.16) rotate(-5deg)}
+    65%{transform:translateY(0) scale(1.06) rotate(5deg)}
+  }
+  @keyframes shake{
+    0%,100%{transform:translateX(0)}
+    30%{transform:translateX(-10px)}
+    65%{transform:translateX(10px)}
   }
   .message{
     text-align:center;
-    font-size:clamp(32px,10vw,48px);
+    font-size:clamp(34px,10vw,50px);
     font-weight:1000;
+    min-height:54px;
     line-height:1.05;
-    min-height:50px;
+    text-shadow:0 3px 0 rgba(255,255,255,.7);
   }
-  .message.ok{color:#ff4f86}
-  .message.ng{color:var(--blue)}
+  .message.ok{color:var(--ok)}
+  .message.ng{color:var(--ng)}
   .choices{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:12px;
-    width:100%;
   }
-  button.choice{
+  .choice{
     border:0;
     border-radius:30px;
-    background:white;
-    min-height:clamp(146px,22vh,190px);
+    background:rgba(255,255,255,.96);
+    min-height:clamp(150px,23vh,198px);
+    font-size:clamp(78px,24vw,126px);
+    box-shadow:0 10px 0 var(--shadow),0 15px 22px rgba(0,0,0,.10);
+    display:flex;
+    align-items:center;
+    justify-content:center;
     padding:8px;
-    font-size:clamp(76px,23vw,122px);
-    box-shadow:0 9px 0 var(--shadow),0 13px 22px rgba(0,0,0,.10);
-    transform:translateY(0);
-    transition:transform .08s ease, box-shadow .08s ease;
   }
-  button.choice:active{
+  .choice:active{
     transform:translateY(7px);
-    box-shadow:0 2px 0 var(--shadow),0 8px 15px rgba(0,0,0,.08);
+    box-shadow:0 3px 0 var(--shadow),0 8px 16px rgba(0,0,0,.10);
   }
-  .start{
+  .startScreen{
     position:absolute;
     inset:0;
-    background:linear-gradient(160deg,#fff4ba,#ffd7e7);
+    z-index:10;
     display:flex;
     align-items:center;
     justify-content:center;
     flex-direction:column;
-    gap:18px;
-    z-index:5;
-    padding:24px;
+    gap:24px;
+    padding:22px;
     text-align:center;
+    background:linear-gradient(160deg,rgba(255,245,189,.95),rgba(255,214,231,.95),rgba(217,251,255,.95));
   }
-  .start h1{
+  .startScreen h2{
     margin:0;
-    font-size:clamp(32px,10vw,50px);
+    font-size:clamp(42px,12vw,62px);
     line-height:1.22;
     font-weight:1000;
+    letter-spacing:.02em;
+    text-shadow:0 4px 0 rgba(255,255,255,.75);
   }
-  .start button{
+  .startBtn{
     border:0;
-    background:var(--pink);
-    color:white;
-    font-weight:1000;
-    font-size:30px;
-    padding:18px 40px;
     border-radius:999px;
-    box-shadow:0 8px 0 #d85f83;
+    background:var(--button);
+    color:white;
+    font-size:clamp(32px,9vw,46px);
+    font-weight:1000;
+    padding:16px 48px 18px;
+    box-shadow:0 10px 0 var(--buttonDark),0 16px 24px rgba(0,0,0,.16);
+  }
+  .startBtn:active{
+    transform:translateY(7px);
+    box-shadow:0 3px 0 var(--buttonDark),0 8px 14px rgba(0,0,0,.14);
   }
   .sparkle{
     position:absolute;
+    z-index:20;
     pointer-events:none;
-    font-size:38px;
-    animation:pop 800ms ease forwards;
-    z-index:4;
+    font-size:36px;
+    animation:sparklePop 900ms ease forwards;
   }
-  @keyframes pop{
-    0%{opacity:0; transform:scale(.2) translateY(20px)}
+  @keyframes sparklePop{
+    0%{opacity:0; transform:scale(.2) translateY(28px) rotate(0)}
     35%{opacity:1}
-    100%{opacity:0; transform:scale(1.6) translateY(-70px)}
+    100%{opacity:0; transform:scale(1.7) translateY(-78px) rotate(18deg)}
   }
 </style>
 </head>
 <body>
 <div class="app">
   <div class="title">すきなものクイズ</div>
-  <div class="stage">
-    <div class="start" id="start">
-      <h1>ぼくのすきなもの<br>どっちかなっ？</h1>
-      <button id="startBtn">スタート</button>
+
+  <div class="stage" id="stage">
+    <div class="startScreen" id="startScreen">
+      <h2>ぼくのすきなもの<br>どっちかなぁ？？</h2>
+      <button class="startBtn" id="startBtn">スタート</button>
     </div>
+
     <div class="question" id="question">どっちかなっ？</div>
-    <div class="animalWrap"><div class="character" id="character">🐰</div></div>
+    <div class="animalArea">
+      <div class="animal" id="animal">🦖</div>
+    </div>
     <div class="message" id="message"></div>
     <div class="choices">
       <button class="choice" id="left"></button>
@@ -176,13 +201,14 @@
 
 <script>
 const problems = [
+  {animal:"🦖", like:"🍖", wrong:"🌸"},
   {animal:"🐰", like:"🥕", wrong:"🍖"},
   {animal:"🐱", like:"🐟", wrong:"🥕"},
   {animal:"🐶", like:"🦴", wrong:"🌿"},
   {animal:"🐼", like:"🎋", wrong:"🍖"},
   {animal:"🐵", like:"🍌", wrong:"🐟"},
   {animal:"🐘", like:"🍎", wrong:"🦴"},
-  {animal:"🦁", like:"🍖", wrong:"🥕"},
+  {animal:"🦁", like:"🍖", wrong:"🌸"},
   {animal:"🦊", like:"🍇", wrong:"🎋"},
   {animal:"🐻", like:"🍯", wrong:"🌿"},
   {animal:"🐭", like:"🧀", wrong:"🍖"},
@@ -191,7 +217,6 @@ const problems = [
   {animal:"🦋", like:"🌼", wrong:"🦴"},
   {animal:"🐞", like:"🍃", wrong:"🐟"},
   {animal:"🦗", like:"🌿", wrong:"🍯"},
-  {animal:"🦖", like:"🍖", wrong:"🌸"},
   {animal:"🐴", like:"🥕", wrong:"🐟"},
   {animal:"🐔", like:"🌽", wrong:"🦴"},
   {animal:"🐧", like:"🐟", wrong:"🍌"},
@@ -200,11 +225,13 @@ const problems = [
 
 let current = null;
 let locked = false;
+let lastAnimal = "";
 
-const start = document.getElementById("start");
+const stage = document.getElementById("stage");
+const startScreen = document.getElementById("startScreen");
 const startBtn = document.getElementById("startBtn");
 const question = document.getElementById("question");
-const character = document.getElementById("character");
+const animal = document.getElementById("animal");
 const message = document.getElementById("message");
 const left = document.getElementById("left");
 const right = document.getElementById("right");
@@ -212,67 +239,93 @@ const right = document.getElementById("right");
 function speak(text){
   try{
     if(!("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel();
+    speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = "ja-JP";
-    u.rate = 1.18;
-    u.pitch = 1.86;
+    u.pitch = 1.92;
+    u.rate = 1.16;
     u.volume = 1;
-    window.speechSynthesis.speak(u);
+    speechSynthesis.speak(u);
   }catch(e){}
 }
 
-function shuffle(a){
-  return a.sort(()=>Math.random()-0.5);
+function sparkle(count=14, center=false){
+  const icons = ["✨","⭐","💖","🌟","🎉"];
+  for(let i=0;i<count;i++){
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.textContent = icons[Math.floor(Math.random()*icons.length)];
+    if(center){
+      s.style.left = (24 + Math.random()*52) + "%";
+      s.style.top = (34 + Math.random()*28) + "%";
+    }else{
+      s.style.left = (12 + Math.random()*76) + "%";
+      s.style.top = (12 + Math.random()*60) + "%";
+    }
+    stage.appendChild(s);
+    setTimeout(()=>s.remove(), 950);
+  }
+}
+
+function shuffle(arr){
+  return arr.sort(()=>Math.random()-0.5);
 }
 
 function nextProblem(){
   locked = false;
   message.textContent = "";
   message.className = "message";
-  character.classList.remove("happy");
-  current = problems[Math.floor(Math.random()*problems.length)];
-  character.textContent = current.animal;
+  animal.classList.remove("happy","shake");
+
+  let p = problems[Math.floor(Math.random()*problems.length)];
+  if(problems.length > 1){
+    while(p.animal === lastAnimal){
+      p = problems[Math.floor(Math.random()*problems.length)];
+    }
+  }
+  current = p;
+  lastAnimal = p.animal;
+
+  animal.textContent = current.animal;
   const opts = shuffle([current.like, current.wrong]);
   left.textContent = opts[0];
   right.textContent = opts[1];
   question.textContent = "どっちかなっ？";
-  setTimeout(()=>speak("どっちかなっ？"), 160);
-}
 
-function sparkle(){
-  for(let i=0;i<12;i++){
-    const s = document.createElement("div");
-    s.className = "sparkle";
-    s.textContent = ["✨","⭐","💖","🎉"][Math.floor(Math.random()*4)];
-    s.style.left = (18 + Math.random()*64) + "%";
-    s.style.top = (18 + Math.random()*42) + "%";
-    document.querySelector(".stage").appendChild(s);
-    setTimeout(()=>s.remove(), 850);
-  }
+  setTimeout(()=>speak("どっちかなっ？"), 180);
 }
 
 function answer(choice){
   if(locked) return;
+
   if(choice === current.like){
     locked = true;
     message.textContent = "あたりっ！";
     message.className = "message ok";
-    character.classList.add("happy");
-    sparkle();
+    animal.classList.remove("shake");
+    animal.classList.add("happy");
+    sparkle(16, true);
     speak("あたりっ！");
     setTimeout(nextProblem, 1050);
   }else{
     message.textContent = "ちがうよー";
     message.className = "message ng";
+    animal.classList.remove("shake");
+    void animal.offsetWidth;
+    animal.classList.add("shake");
     speak("ちがうよー");
   }
 }
 
 startBtn.addEventListener("click", ()=>{
-  start.style.display = "none";
-  nextProblem();
+  speak("ぼくのすきなもの、どっちかなぁ？");
+  sparkle(22, true);
+  setTimeout(()=>{
+    startScreen.style.display = "none";
+    nextProblem();
+  }, 1200);
 });
+
 left.addEventListener("click", ()=>answer(left.textContent));
 right.addEventListener("click", ()=>answer(right.textContent));
 </script>
