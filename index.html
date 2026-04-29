@@ -202,7 +202,7 @@
     <div class="start-box">
       <div class="start-title">すきなもの</div>
       <div class="start-emoji">🦁</div>
-      <p class="start-text">ぼくの好きなもの、<br>どーっちだ？</p>
+      <p class="start-text">ぼくのすきなもの、<br>どっちかな？</p>
       <button class="start-btn" id="startBtn">はじめる</button>
     </div>
   </div>
@@ -210,7 +210,7 @@
   <main class="app">
     <section class="card">
       <h1>すきなもの</h1>
-      <p class="lead">ぼくの好きなもの、どーっちだ？</p>
+      <p class="lead">ぼくのすきなもの、どっちかな？</p>
       <div class="animal-wrap" id="animalWrap"><div class="animal" id="animal">🦁</div></div>
       <div class="question" id="question">ライオンの<br>すきなものは？</div>
       <p class="hint">えらんでね</p>
@@ -273,18 +273,24 @@
       return arr;
     }
 
-    function speak(text, rate = 1.0, pitch = 1.25) {
+    function speak(text, rate = 0.82, pitch = 1.45) {
       if (!('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       u.lang = 'ja-JP';
-      u.rate = rate;
-      u.pitch = pitch;
-      u.volume = 1;
+      u.rate = rate;      // ゆっくりめで怖さを減らす
+      u.pitch = pitch;    // 少し高めでかわいく
+      u.volume = 0.9;     // 大きすぎると怖いので少しだけ下げる
       const voices = window.speechSynthesis.getVoices();
-      const jp = voices.find(v => v.lang === 'ja-JP') || voices.find(v => v.lang && v.lang.startsWith('ja'));
+      const cuteVoice = voices.find(v => /Kyoko|Otoya|Google 日本語|Japanese/i.test(v.name) && (v.lang === 'ja-JP' || v.lang.startsWith('ja')));
+      const jp = cuteVoice || voices.find(v => v.lang === 'ja-JP') || voices.find(v => v.lang && v.lang.startsWith('ja'));
       if (jp) u.voice = jp;
       window.speechSynthesis.speak(u);
+    }
+
+    function introVoice() {
+      // 「どーっちだ」は読み上げが壊れやすいので、声だけ自然でかわいい言い方にする
+      speak('ぼくのすきなもの、どっちかな？', 0.80, 1.5);
     }
 
     function littleSound(type) {
@@ -335,14 +341,14 @@
         animalWrap.className = 'animal-wrap happy';
         scoreEl.textContent = `せいかい ${score}`;
         littleSound('correct');
-        speak('あたり！', 1.05, 1.45);
+        speak('あたり！', 0.88, 1.55);
         confetti();
       } else {
         feedback.textContent = 'ちがうよー';
         feedback.className = 'feedback shake';
         animalWrap.className = 'animal-wrap shake';
         littleSound('wrong');
-        speak('ちがうよー', .95, 1.15);
+        speak('ちがうよー', 0.82, 1.35);
       }
       nextBtn.style.display = 'block';
     }
@@ -354,7 +360,7 @@
         order = shuffle([...quiz]);
       }
       showQuestion();
-      setTimeout(() => speak('ぼくの好きなもの、どーっちだ？', .98, 1.25), 180);
+      setTimeout(introVoice, 180);
     }
 
     function confetti() {
@@ -373,7 +379,7 @@
     startBtn.addEventListener('click', () => {
       startCover.style.display = 'none';
       // iPhone対策：ユーザーのタップ直後に音声を開始
-      speak('ぼくの好きなもの、どーっちだ？', .98, 1.25);
+      introVoice();
       showQuestion();
     });
     nextBtn.addEventListener('click', next);
