@@ -10,7 +10,6 @@
     --cream:#fff5bd;
     --pink:#ffd6e7;
     --sky:#d9fbff;
-    --card:#fffefa;
     --button:#ff85b3;
     --buttonDark:#d95782;
     --shadow:#efd28c;
@@ -18,11 +17,7 @@
     --ng:#5aa5ff;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{
-    margin:0;
-    height:100%;
-    overflow:hidden;
-  }
+  html,body{margin:0;height:100%;overflow:hidden;}
   body{
     font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
     color:var(--ink);
@@ -168,7 +163,7 @@
     z-index:20;
     pointer-events:none;
     font-size:36px;
-    animation:sparklePop 900ms ease forwards;
+    animation:sparklePop 1000ms ease forwards;
   }
   @keyframes sparklePop{
     0%{opacity:0; transform:scale(.2) translateY(28px) rotate(0)}
@@ -183,7 +178,7 @@
 
   <div class="stage" id="stage">
     <div class="startScreen" id="startScreen">
-      <h2>ぼくのすきなもの<br>どっちかなぁ？？</h2>
+      <h2>ぼくのすきなもの<br>どーっちだぁ？？</h2>
       <button class="startBtn" id="startBtn">スタート</button>
     </div>
 
@@ -236,17 +231,21 @@ const message = document.getElementById("message");
 const left = document.getElementById("left");
 const right = document.getElementById("right");
 
-function speak(text){
-  try{
-    if(!("speechSynthesis" in window)) return;
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = "ja-JP";
-    u.pitch = 1.92;
-    u.rate = 1.16;
-    u.volume = 1;
-    speechSynthesis.speak(u);
-  }catch(e){}
+function speak(text, opts={}){
+  return new Promise(resolve=>{
+    try{
+      if(!("speechSynthesis" in window)){ resolve(); return; }
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "ja-JP";
+      u.pitch = opts.pitch || 1.9;
+      u.rate = opts.rate || 1.05;
+      u.volume = 1;
+      u.onend = () => resolve();
+      speechSynthesis.speak(u);
+      setTimeout(resolve, opts.fallback || 3200);
+    }catch(e){ resolve(); }
+  });
 }
 
 function sparkle(count=14, center=false){
@@ -263,7 +262,7 @@ function sparkle(count=14, center=false){
       s.style.top = (12 + Math.random()*60) + "%";
     }
     stage.appendChild(s);
-    setTimeout(()=>s.remove(), 950);
+    setTimeout(()=>s.remove(), 1050);
   }
 }
 
@@ -292,7 +291,7 @@ function nextProblem(){
   right.textContent = opts[1];
   question.textContent = "どっちかなっ？";
 
-  setTimeout(()=>speak("どっちかなっ？"), 180);
+  setTimeout(()=>speak("どっちかなっ？", {rate:1.14, pitch:1.9, fallback:1800}), 180);
 }
 
 function answer(choice){
@@ -305,7 +304,7 @@ function answer(choice){
     animal.classList.remove("shake");
     animal.classList.add("happy");
     sparkle(16, true);
-    speak("あたりっ！");
+    speak("あたりっ！", {rate:1.18, pitch:1.92, fallback:1300});
     setTimeout(nextProblem, 1050);
   }else{
     message.textContent = "ちがうよー";
@@ -313,17 +312,18 @@ function answer(choice){
     animal.classList.remove("shake");
     void animal.offsetWidth;
     animal.classList.add("shake");
-    speak("ちがうよー");
+    speak("ちがうよー", {rate:1.05, pitch:1.78, fallback:1400});
   }
 }
 
-startBtn.addEventListener("click", ()=>{
-  speak("ぼくのすきなもの、どっちかなぁ？");
-  sparkle(22, true);
+startBtn.addEventListener("click", async ()=>{
+  startBtn.disabled = true;
+  sparkle(24, true);
+  await speak("ぼくのすきなもの、どーっちだぁ？", {rate:0.88, pitch:1.85, fallback:3400});
   setTimeout(()=>{
     startScreen.style.display = "none";
     nextProblem();
-  }, 1200);
+  }, 350);
 });
 
 left.addEventListener("click", ()=>answer(left.textContent));
