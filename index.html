@@ -33,26 +33,26 @@
 <script>
 const TOTAL=10;
 const baseQuestions=[
- {q:'きょうりゅうさんが すきなのは？',a:'おにく',b:'はっぱ',ae:'🍖',be:'🌿',correct:0},
- {q:'ねこさんが すきなのは？',a:'おさかな',b:'にんじん',ae:'🐟',be:'🥕',correct:0},
- {q:'うさぎさんが すきなのは？',a:'にんじん',b:'おにく',ae:'🥕',be:'🍖',correct:0},
- {q:'パンダさんが すきなのは？',a:'たけ',b:'チーズ',ae:'🎋',be:'🧀',correct:0},
- {q:'ぞうさんが すきなのは？',a:'バナナ',b:'くつ',ae:'🍌',be:'👟',correct:0},
- {q:'さるさんが すきなのは？',a:'バナナ',b:'せっけん',ae:'🍌',be:'🧼',correct:0},
- {q:'いぬさんが すきなのは？',a:'ほね',b:'はさみ',ae:'🦴',be:'✂️',correct:0},
- {q:'ライオンさんが すきなのは？',a:'おにく',b:'ケーキ',ae:'🍖',be:'🍰',correct:0},
- {q:'ペンギンさんが すきなのは？',a:'おさかな',b:'どんぐり',ae:'🐟',be:'🌰',correct:0},
- {q:'リスさんが すきなのは？',a:'どんぐり',b:'ラーメン',ae:'🌰',be:'🍜',correct:0},
- {q:'こあらさんが すきなのは？',a:'ユーカリ',b:'ピザ',ae:'🌿',be:'🍕',correct:0},
- {q:'とりさんが すきなのは？',a:'たね',b:'アイス',ae:'🌻',be:'🍨',correct:0},
- {q:'くまさんが すきなのは？',a:'はちみつ',b:'えんぴつ',ae:'🍯',be:'✏️',correct:0},
- {q:'かえるさんが すきなのは？',a:'むし',b:'くるま',ae:'🐛',be:'🚗',correct:0},
- {q:'きりんさんが すきなのは？',a:'はっぱ',b:'プリン',ae:'🌿',be:'🍮',correct:0},
- {q:'ぶたさんが すきなのは？',a:'りんご',b:'ぼうし',ae:'🍎',be:'👒',correct:0},
- {q:'ひつじさんが すきなのは？',a:'くさ',b:'ジュース',ae:'🌱',be:'🧃',correct:0},
- {q:'うしさんが すきなのは？',a:'くさ',b:'ドーナツ',ae:'🌱',be:'🍩',correct:0},
- {q:'かめさんが すきなのは？',a:'やさい',b:'スマホ',ae:'🥬',be:'📱',correct:0},
- {q:'マロちゃんが すきなのは？',a:'カキカキ',b:'おそうじき',ae:'🫳',be:'🧹',correct:0}
+ {face:'🦖',q:'きょうりゅうさんが すきなのは？',a:'おにく',b:'はっぱ',ae:'🍖',be:'🌿',correct:0},
+ {face:'🐱',q:'ねこさんが すきなのは？',a:'おさかな',b:'にんじん',ae:'🐟',be:'🥕',correct:0},
+ {face:'🐰',q:'うさぎさんが すきなのは？',a:'にんじん',b:'おにく',ae:'🥕',be:'🍖',correct:0},
+ {face:'🐼',q:'パンダさんが すきなのは？',a:'たけ',b:'チーズ',ae:'🎋',be:'🧀',correct:0},
+ {face:'🐘',q:'ぞうさんが すきなのは？',a:'バナナ',b:'くつ',ae:'🍌',be:'👟',correct:0},
+ {face:'🐵',q:'さるさんが すきなのは？',a:'バナナ',b:'せっけん',ae:'🍌',be:'🧼',correct:0},
+ {face:'🐶',q:'いぬさんが すきなのは？',a:'ほね',b:'はさみ',ae:'🦴',be:'✂️',correct:0},
+ {face:'🦁',q:'ライオンさんが すきなのは？',a:'おにく',b:'ケーキ',ae:'🍖',be:'🍰',correct:0},
+ {face:'🐧',q:'ペンギンさんが すきなのは？',a:'おさかな',b:'どんぐり',ae:'🐟',be:'🌰',correct:0},
+ {face:'🐿️',q:'リスさんが すきなのは？',a:'どんぐり',b:'ラーメン',ae:'🌰',be:'🍜',correct:0},
+ {face:'🐨',q:'こあらさんが すきなのは？',a:'ユーカリ',b:'ピザ',ae:'🌿',be:'🍕',correct:0},
+ {face:'🐦',q:'とりさんが すきなのは？',a:'たね',b:'アイス',ae:'🌻',be:'🍨',correct:0},
+ {face:'🐻',q:'くまさんが すきなのは？',a:'はちみつ',b:'えんぴつ',ae:'🍯',be:'✏️',correct:0},
+ {face:'🐸',q:'かえるさんが すきなのは？',a:'むし',b:'くるま',ae:'🐛',be:'🚗',correct:0},
+ {face:'🦒',q:'きりんさんが すきなのは？',a:'はっぱ',b:'プリン',ae:'🌿',be:'🍮',correct:0},
+ {face:'🐷',q:'ぶたさんが すきなのは？',a:'りんご',b:'ぼうし',ae:'🍎',be:'👒',correct:0},
+ {face:'🐑',q:'ひつじさんが すきなのは？',a:'くさ',b:'ジュース',ae:'🌱',be:'🧃',correct:0},
+ {face:'🐮',q:'うしさんが すきなのは？',a:'くさ',b:'ドーナツ',ae:'🌱',be:'🍩',correct:0},
+ {face:'🐢',q:'かめさんが すきなのは？',a:'やさい',b:'スマホ',ae:'🥬',be:'📱',correct:0},
+ {face:'🐦',q:'マロちゃんが すきなのは？',a:'カキカキ',b:'おそうじき',ae:'🫳',be:'🧹',correct:0}
 ];
 let deck=[],index=0,ok=0,locked=false;
 const $=id=>document.getElementById(id);
@@ -63,7 +63,7 @@ function badSound(){beep(180,.13,'triangle',.08)}
 function spark(x=innerWidth/2,y=innerHeight/2){['✨','⭐','💖','🌟','✨','🎉'].forEach((s,i)=>{const el=document.createElement('div');el.className='sparkle';el.textContent=s;el.style.left=x+'px';el.style.top=y+'px';el.style.setProperty('--x',(Math.random()*240-120)+'px');el.style.setProperty('--y',(-80-Math.random()*170)+'px');document.body.appendChild(el);setTimeout(()=>el.remove(),1300)})}
 function confetti(){const colors=['#ff5fa2','#ffd447','#7bdcff','#8cff7b','#ff8a3d'];for(let i=0;i<70;i++){const el=document.createElement('div');el.className='confetti';el.style.left=Math.random()*100+'vw';el.style.background=colors[i%colors.length];el.style.animationDelay=(Math.random()*.45)+'s';el.style.transform='rotate('+Math.random()*180+'deg)';document.body.appendChild(el);setTimeout(()=>el.remove(),2400)}}
 function start(){deck=shuffle(baseQuestions.map(q=>({...q}))).slice(0,TOTAL);index=0;ok=0;locked=false;$('end').classList.remove('show');showQ()}
-function showQ(){locked=false;$('feedback').textContent='';$('maro').classList.remove('happy');const q=deck[index];$('qcount').textContent=(index+1)+'/'+TOTAL;$('score').textContent='せいかい '+ok;$('question').textContent=q.q;let opts=[{t:q.a,e:q.ae,c:q.correct===0},{t:q.b,e:q.be,c:q.correct===1}];opts=shuffle(opts);['left','right'].forEach((id,i)=>{const b=$(id);b.className='choice';b.innerHTML='<div class="emoji">'+opts[i].e+'</div><div>'+opts[i].t+'</div>';b.onclick=(ev)=>answer(opts[i].c,b,ev)})}
+function showQ(){locked=false;$('feedback').textContent='';$('maro').classList.remove('happy');const q=deck[index];$('qcount').textContent=(index+1)+'/'+TOTAL;$('score').textContent='せいかい '+ok;$('question').textContent=q.q;$('maro').textContent=q.face||'🐦';let opts=[{t:q.a,e:q.ae,c:q.correct===0},{t:q.b,e:q.be,c:q.correct===1}];opts=shuffle(opts);['left','right'].forEach((id,i)=>{const b=$(id);b.className='choice';b.innerHTML='<div class="emoji">'+opts[i].e+'</div><div>'+opts[i].t+'</div>';b.onclick=(ev)=>answer(opts[i].c,b,ev)})}
 function answer(correct,btn,ev){if(locked)return;locked=true;document.querySelectorAll('.choice').forEach(b=>b.classList.add('disabled'));if(correct){ok++;btn.classList.add('correct');$('feedback').textContent='あたりっ！';$('maro').classList.add('happy');goodSound();spark(ev.clientX,ev.clientY)}else{btn.classList.add('wrong');$('feedback').textContent='おしい！';badSound()}$('score').textContent='せいかい '+ok;setTimeout(()=>{index++; if(index>=TOTAL){setTimeout(endGame,550)}else{showQ()}},700)}
 function endGame(){$('finalScore').textContent=ok+'もん せいかい！';$('end').classList.add('show');confetti();spark(innerWidth/2,innerHeight/2);goodSound();setTimeout(goodSound,220)}
 $('again').onclick=start;start();
