@@ -1,72 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>どうぶつ どっち？</title>
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#ffd76a">
-<link rel="apple-touch-icon" href="icon-180.png">
-<style>
-:root{--bg1:#fff7d7;--bg2:#ffd6e8;--main:#ff8a3d;--accent:#ff5fa2;--card:#fff;--text:#4a2b15;}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;color:var(--text);overflow:hidden}body{background:radial-gradient(circle at 20% 15%,#fff 0 10%,transparent 28%),linear-gradient(145deg,var(--bg1),var(--bg2));}.app{min-height:100dvh;padding:calc(env(safe-area-inset-top) + 14px) 14px calc(env(safe-area-inset-bottom) + 14px);display:flex;flex-direction:column;align-items:center;gap:12px;position:relative}.top{width:min(720px,100%);display:flex;justify-content:space-between;align-items:center;gap:10px}.badge{background:#fff8;border:3px solid #fff;border-radius:999px;padding:9px 14px;font-weight:900;box-shadow:0 8px 20px #0001;font-size:clamp(16px,4vw,22px)}.title{font-weight:1000;font-size:clamp(26px,8vw,48px);letter-spacing:.02em;text-align:center;text-shadow:0 4px 0 #fff;margin:4px 0 0}.maro{font-size:clamp(64px,22vw,150px);filter:drop-shadow(0 10px 0 #0001);line-height:1;transition:transform .25s ease}.maro.happy{animation:bounce .75s ease 3}.speech{background:white;border:4px solid #ffb44f;border-radius:28px;padding:13px 18px;width:min(680px,96%);font-size:clamp(21px,6vw,38px);font-weight:1000;text-align:center;box-shadow:0 9px 0 #ffb44f44}.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:min(720px,100%);margin-top:2px}.choice{border:0;border-radius:30px;background:white;padding:18px 8px 15px;min-height:170px;box-shadow:0 10px 0 #00000018,0 18px 30px #0001;font-weight:1000;color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:clamp(21px,5.8vw,36px);touch-action:manipulation}.choice:active{transform:translateY(5px);box-shadow:0 5px 0 #00000018}.emoji{font-size:clamp(56px,19vw,120px);line-height:1}.choice.correct{background:#eaffd7;animation:pop .45s ease}.choice.wrong{background:#ffe2e2;animation:shake .35s ease}.choice.disabled{pointer-events:none}.feedback{height:46px;font-size:clamp(24px,7vw,44px);font-weight:1000;text-align:center}.overlay{position:fixed;inset:0;background:linear-gradient(145deg,#fff3c1,#ffd4ea);display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.overlay.show{display:flex}.result{width:min(680px,96%);background:white;border-radius:38px;padding:28px 20px;text-align:center;box-shadow:0 18px 50px #0002;border:5px solid #fff}.result .big{font-size:clamp(40px,13vw,86px);font-weight:1000;margin:4px 0}.result .bird{font-size:clamp(84px,26vw,170px);animation:bounce 1s ease infinite}.result .score{font-size:clamp(30px,9vw,62px);font-weight:1000;color:#ff6b35}.result .msg{font-size:clamp(28px,8vw,56px);font-weight:1000;margin:10px 0 18px}.again{border:0;border-radius:999px;background:linear-gradient(180deg,#ff91c3,#ff5fa2);color:white;font-size:clamp(24px,7vw,46px);font-weight:1000;padding:18px 28px;box-shadow:0 10px 0 #c93a76;touch-action:manipulation}.again:active{transform:translateY(6px);box-shadow:0 4px 0 #c93a76}.sparkle{position:fixed;pointer-events:none;font-size:32px;z-index:20;animation:fly 1.25s ease-out forwards}.confetti{position:fixed;width:12px;height:18px;top:-20px;border-radius:3px;z-index:19;animation:fall 1.9s linear forwards}.hidden{display:none!important}@keyframes bounce{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-18px) scale(1.08)}65%{transform:translateY(4px) scale(.98)}}@keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.08)}100%{transform:scale(1)}}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-5px)}}@keyframes fly{0%{opacity:1;transform:translate(0,0) scale(.7) rotate(0)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.4) rotate(240deg)}}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.8}}@media (max-height:720px){.maro{font-size:72px}.choice{min-height:135px;padding:12px 6px}.speech{padding:10px}.feedback{height:34px}.app{gap:8px}.emoji{font-size:58px}}
-</style>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+ <title>どうぶつの すきなもの あてっこ</title>
+ <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="app" id="game">
-  <div class="top"><div class="badge" id="qcount">1/10</div><div class="badge" id="score">せいかい 0</div></div>
-  <h1 class="title">どうぶつ どっち？</h1>
-  <div class="maro" id="maro" aria-hidden="true">🐦</div>
-  <div class="speech" id="question">どっちかなぁ？？</div>
-  <div class="choices"><button class="choice" id="left"></button><button class="choice" id="right"></button></div>
-  <div class="feedback" id="feedback"></div>
-</div>
-<div class="overlay" id="end">
-  <div class="result">
-    <div class="big">おしまい！</div>
-    <div class="bird">🐦</div>
-    <div class="score" id="finalScore">0もん せいかい！</div>
-    <div class="msg">やったねー！！✨</div>
-    <button class="again" id="again">もういっかいやる？</button>
+ <main class="game" id="game">
+  <div class="sky">
+   <div class="sun">☀️</div>
+   <div class="cloud c1">☁️</div>
+   <div class="cloud c2">☁️</div>
   </div>
-</div>
-<script>
-const TOTAL=10;
-const baseQuestions=[
- {face:'🦖',q:'きょうりゅうさんが すきなのは？',a:'おにく',b:'はっぱ',ae:'🍖',be:'🌿',correct:0},
- {face:'🐱',q:'ねこさんが すきなのは？',a:'おさかな',b:'にんじん',ae:'🐟',be:'🥕',correct:0},
- {face:'🐰',q:'うさぎさんが すきなのは？',a:'にんじん',b:'おにく',ae:'🥕',be:'🍖',correct:0},
- {face:'🐼',q:'パンダさんが すきなのは？',a:'たけ',b:'チーズ',ae:'🎋',be:'🧀',correct:0},
- {face:'🐘',q:'ぞうさんが すきなのは？',a:'バナナ',b:'くつ',ae:'🍌',be:'👟',correct:0},
- {face:'🐵',q:'さるさんが すきなのは？',a:'バナナ',b:'せっけん',ae:'🍌',be:'🧼',correct:0},
- {face:'🐶',q:'いぬさんが すきなのは？',a:'ほね',b:'はさみ',ae:'🦴',be:'✂️',correct:0},
- {face:'🦁',q:'ライオンさんが すきなのは？',a:'おにく',b:'ケーキ',ae:'🍖',be:'🍰',correct:0},
- {face:'🐧',q:'ペンギンさんが すきなのは？',a:'おさかな',b:'どんぐり',ae:'🐟',be:'🌰',correct:0},
- {face:'🐿️',q:'リスさんが すきなのは？',a:'どんぐり',b:'ラーメン',ae:'🌰',be:'🍜',correct:0},
- {face:'🐨',q:'こあらさんが すきなのは？',a:'ユーカリ',b:'ピザ',ae:'🌿',be:'🍕',correct:0},
- {face:'🐦',q:'とりさんが すきなのは？',a:'たね',b:'アイス',ae:'🌻',be:'🍨',correct:0},
- {face:'🐻',q:'くまさんが すきなのは？',a:'はちみつ',b:'えんぴつ',ae:'🍯',be:'✏️',correct:0},
- {face:'🐸',q:'かえるさんが すきなのは？',a:'むし',b:'くるま',ae:'🐛',be:'🚗',correct:0},
- {face:'🦒',q:'きりんさんが すきなのは？',a:'はっぱ',b:'プリン',ae:'🌿',be:'🍮',correct:0},
- {face:'🐷',q:'ぶたさんが すきなのは？',a:'りんご',b:'ぼうし',ae:'🍎',be:'👒',correct:0},
- {face:'🐑',q:'ひつじさんが すきなのは？',a:'くさ',b:'ジュース',ae:'🌱',be:'🧃',correct:0},
- {face:'🐮',q:'うしさんが すきなのは？',a:'くさ',b:'ドーナツ',ae:'🌱',be:'🍩',correct:0},
- {face:'🐢',q:'かめさんが すきなのは？',a:'やさい',b:'スマホ',ae:'🥬',be:'📱',correct:0},
- {face:'🐦',q:'マロちゃんが すきなのは？',a:'カキカキ',b:'おそうじき',ae:'🫳',be:'🧹',correct:0}
-];
-let deck=[],index=0,ok=0,locked=false;
-const $=id=>document.getElementById(id);
-function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
-function beep(freq=880,dur=.12,type='sine',vol=.15){try{const ac=new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator();const g=ac.createGain();o.type=type;o.frequency.value=freq;g.gain.value=vol;o.connect(g);g.connect(ac.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+dur);o.stop(ac.currentTime+dur)}catch(e){}}
-function goodSound(){beep(740,.09,'sine',.18);setTimeout(()=>beep(980,.12,'sine',.2),80)}
-function badSound(){beep(180,.13,'triangle',.08)}
-function spark(x=innerWidth/2,y=innerHeight/2){['✨','⭐','💖','🌟','✨','🎉'].forEach((s,i)=>{const el=document.createElement('div');el.className='sparkle';el.textContent=s;el.style.left=x+'px';el.style.top=y+'px';el.style.setProperty('--x',(Math.random()*240-120)+'px');el.style.setProperty('--y',(-80-Math.random()*170)+'px');document.body.appendChild(el);setTimeout(()=>el.remove(),1300)})}
-function confetti(){const colors=['#ff5fa2','#ffd447','#7bdcff','#8cff7b','#ff8a3d'];for(let i=0;i<70;i++){const el=document.createElement('div');el.className='confetti';el.style.left=Math.random()*100+'vw';el.style.background=colors[i%colors.length];el.style.animationDelay=(Math.random()*.45)+'s';el.style.transform='rotate('+Math.random()*180+'deg)';document.body.appendChild(el);setTimeout(()=>el.remove(),2400)}}
-function start(){deck=shuffle(baseQuestions.map(q=>({...q}))).slice(0,TOTAL);index=0;ok=0;locked=false;$('end').classList.remove('show');showQ()}
-function showQ(){locked=false;$('feedback').textContent='';$('maro').classList.remove('happy');const q=deck[index];$('qcount').textContent=(index+1)+'/'+TOTAL;$('score').textContent='せいかい '+ok;$('question').textContent=q.q;$('maro').textContent=q.face||'🐦';let opts=[{t:q.a,e:q.ae,c:q.correct===0},{t:q.b,e:q.be,c:q.correct===1}];opts=shuffle(opts);['left','right'].forEach((id,i)=>{const b=$(id);b.className='choice';b.innerHTML='<div class="emoji">'+opts[i].e+'</div><div>'+opts[i].t+'</div>';b.onclick=(ev)=>answer(opts[i].c,b,ev)})}
-function answer(correct,btn,ev){if(locked)return;locked=true;document.querySelectorAll('.choice').forEach(b=>b.classList.add('disabled'));if(correct){ok++;btn.classList.add('correct');$('feedback').textContent='あたりっ！';$('maro').classList.add('happy');goodSound();spark(ev.clientX,ev.clientY)}else{btn.classList.add('wrong');$('feedback').textContent='おしい！';badSound()}$('score').textContent='せいかい '+ok;setTimeout(()=>{index++; if(index>=TOTAL){setTimeout(endGame,550)}else{showQ()}},700)}
-function endGame(){$('finalScore').textContent=ok+'もん せいかい！';$('end').classList.add('show');confetti();spark(innerWidth/2,innerHeight/2);goodSound();setTimeout(goodSound,220)}
-$('again').onclick=start;start();
-</script>
+  <section class="top">
+   <h1>すきなもの あてっこ</h1>
+   <p class="sub">どうぶつの すきなものを えらぼう！</p>
+  </section>
+  <section class="comboBox">
+   <div class="score">せいかい <span id="score">0</span></div>
+   <div class="combo" id="combo">コンボ 0</div>
+  </section>
+  <section class="stage">
+   <div class="animalWrap" id="animalWrap">
+    <div class="animal" id="animal"></div>
+    <div class="eatText" id="eatText">パクッ！</div>
+   </div>
+   <div class="foodFly" id="foodFly"></div>
+   <div class="sparkles" id="sparkles">✨✨✨</div>
+  </section>
+  <section class="question">
+   <div class="qAnimal" id="qAnimal">ライオンの</div>
+   <div class="qText">すきなものは？</div>
+   <div class="message" id="message">えらんでね</div>
+   <div class="comboMessage" id="comboMessage"></div>
+  </section>
+  <section class="choices" id="choices"></section>
+  <button class="nextBtn" id="nextBtn" type="button">つぎのもんだい</button>
+  <div class="final" id="final">
+   <div class="finalInner">
+    <div class="big">✨</div>
+    <div class="finalTitle">10コンボ！</div>
+    <div class="finalText">すごすぎる！！</div>
+    <button id="continueBtn" type="button">つづける</button>
+   </div>
+  </div>
+ </main>
+ <script src="script.js"></script>
 </body>
 </html>
